@@ -29,7 +29,7 @@ M.lspkind = {
 }
 
 
-M.icons = {
+M.devicons = {
   default_icon = {
     icon = "",
     name = "Default",
