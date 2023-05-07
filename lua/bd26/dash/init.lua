@@ -5,27 +5,24 @@ local fn = vim.fn
 dofile(vim.g.binary .. "dash")
 
 local config = {
+  header = {
+    "           ▄ ▄                   ",
+    "       ▄   ▄▄▄     ▄ ▄▄▄ ▄ ▄     ",
+    "       █ ▄ █▄█ ▄▄▄ █ █▄█ █ █     ",
+    "    ▄▄ █▄█▄▄▄█ █▄█▄█▄▄█▄▄█ █     ",
+    "  ▄ █▄▄█ ▄ ▄▄ ▄█ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄  ",
+    "  █▄▄▄▄ ▄▄▄ █ ▄ ▄▄▄ ▄ ▄▄▄ ▄ ▄ █ ▄",
+    "▄ █ █▄█ █▄█ █ █ █▄█ █ █▄█ ▄▄▄ █ █",
+    "█▄█ ▄ █▄▄█▄▄█ █ ▄▄█ █ ▄ █ █▄█▄█ █",
+    "    █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█ █▄█▄▄▄█    ",
+  },
 
-    load_on_startup = true,
-
-    header = {
-      "           ▄ ▄                   ",
-      "       ▄   ▄▄▄     ▄ ▄▄▄ ▄ ▄     ",
-      "       █ ▄ █▄█ ▄▄▄ █ █▄█ █ █     ",
-      "    ▄▄ █▄█▄▄▄█ █▄█▄█▄▄█▄▄█ █     ",
-      "  ▄ █▄▄█ ▄ ▄▄ ▄█ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄  ",
-      "  █▄▄▄▄ ▄▄▄ █ ▄ ▄▄▄ ▄ ▄▄▄ ▄ ▄ █ ▄",
-      "▄ █ █▄█ █▄█ █ █ █▄█ █ █▄█ ▄▄▄ █ █",
-      "█▄█ ▄ █▄▄█▄▄█ █ ▄▄█ █ ▄ █ █▄█▄█ █",
-      "    █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█ █▄█▄▄▄█    ",
-    },
-
-    buttons = {
-      { "  Find File", "Spc f f", "Telescope find_files" },
-      { "  Recent Files", "Spc f o", "Telescope oldfiles" },
-      { "  Find Word", "Spc f w", "Telescope live_grep" },
-      { "  Bookmarks", "Spc b m", "Telescope marks" },
-    },
+  buttons = {
+    { "  Find File",    "Spc f f", "Telescope find_files" },
+    { "  Recent Files", "Spc f o", "Telescope oldfiles" },
+    { "  Find Word",    "Spc f w", "Telescope live_grep" },
+    { "  Bookmarks",    "Spc b m", "Telescope marks" },
+  },
 }
 
 local headerAscii = config.header
@@ -102,8 +99,9 @@ M.open = function(buf)
       result[i] = ""
     end
 
-    local headerStart_Index = math.abs(math.floor((get_win_height(win) / 2) - (#dashboard / 2))) + 1 -- 1 = To handle zero case
-    local abc = math.abs(math.floor((get_win_height(win) / 2) - (#dashboard / 2))) + 1 -- 1 = To handle zero case
+    local headerStart_Index = math.abs(math.floor((get_win_height(win) / 2) - (#dashboard / 2))) +
+    1                                                                                              -- 1 = To handle zero case
+    local abc = math.abs(math.floor((get_win_height(win) / 2) - (#dashboard / 2))) + 1             -- 1 = To handle zero case
 
     -- set ascii
     for _, val in ipairs(dashboard) do
@@ -113,7 +111,7 @@ M.open = function(buf)
 
     api.nvim_buf_set_lines(buf, 0, -1, false, result)
 
-    local nvdash = api.nvim_create_namespace "nvdash"
+    local nvdash = api.nvim_create_namespace("nvdash")
     local horiz_pad_index = math.floor((api.nvim_win_get_width(win) / 2) - (nvdashWidth / 2)) - 2
 
     for i = abc, abc + #header do
@@ -142,13 +140,13 @@ M.open = function(buf)
     vim.keymap.set("n", "<Down>", "", { buffer = true })
 
     vim.keymap.set("n", "k", function()
-      local cur = fn.line "."
+      local cur = fn.line(".")
       local target_line = cur == keybind_lineNrs[1] and keybind_lineNrs[#keybind_lineNrs] or cur - 2
       api.nvim_win_set_cursor(win, { target_line, math.floor(vim.o.columns / 2) - 13 })
     end, { buffer = true })
 
     vim.keymap.set("n", "j", function()
-      local cur = fn.line "."
+      local cur = fn.line(".")
       local target_line = cur == keybind_lineNrs[#keybind_lineNrs] and keybind_lineNrs[1] or cur + 2
       api.nvim_win_set_cursor(win, { target_line, math.floor(vim.o.columns / 2) - 13 })
     end, { buffer = true })
@@ -156,7 +154,7 @@ M.open = function(buf)
     -- pressing enter on
     vim.keymap.set("n", "<CR>", function()
       for i, val in ipairs(keybind_lineNrs) do
-        if val == fn.line "." then
+        if val == fn.line(".") then
           local action = config.buttons[i][3]
 
           if type(action) == "string" then
