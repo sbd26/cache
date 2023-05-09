@@ -22,6 +22,8 @@ local config = {
     { "  Recent Files", "Spc f o", "Telescope oldfiles" },
     { "  Find Word",    "Spc f w", "Telescope live_grep" },
     { "  Bookmarks",    "Spc b m", "Telescope marks" },
+    { "󱪓  Buffers",    "Spc b b", "Telescope marks" },
+    { "  Git Status",    "Spc g t", "Telescope git_status" },
   },
 }
 
