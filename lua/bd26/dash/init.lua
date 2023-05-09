@@ -15,6 +15,8 @@ local config = {
 "   ▀▄    ▄▀ █   ▄██▄   ▄  ▄  ▀▀ █  ",
 "    █  ▄▀  █    ▀██▀    ▀▀ ▀▀  ▄▀  ",
 "   █   █  █      ▄▄           ▄▀   ",
+"                                   ",
+"    Do one thing and do it well    ",
   },
 
   buttons = {
