@@ -204,11 +204,6 @@ end
 M.run = function()
   local modules = require "bd26.tabufline.modules"
 
-  -- merge user modules :D
-  if tabufline_config.overriden_modules then
-    modules = vim.tbl_deep_extend("force", modules, tabufline_config.overriden_modules())
-  end
-
   local result = modules.bufferlist() .. (modules.tablist() or "") .. modules.buttons()
   return (vim.g.nvimtree_side == "left") and modules.CoverNvimTree() .. result or result .. modules.CoverNvimTree()
 end
